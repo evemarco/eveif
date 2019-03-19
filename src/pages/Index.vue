@@ -2,7 +2,7 @@
   q-page.flex.flex-center
     //   img(alt="Quasar logo" src="~assets/quasar-logo-full.svg")
     div.col
-      q-carousel(arrows animated infinite navigation padding swipeable v-model="slide")
+      q-carousel(arrows animated infinite navigation padding swipeable v-model="slide" :autoplay="autoplay")
         q-carousel-slide(v-for="video in videoList" :name="video.name" :key="video.name")
           .content(v-if="video.name === 0")
             h1.text-h4.text-center {{ $t(`pageIndex.slide[0].title`) }}
@@ -15,7 +15,7 @@
     q-dialog(v-model="videoModal")
       q-card(dark style="height: 80vh+1px; min-width: 80vw;").bg-black
         q-card-actions(align="right").pad-zero
-          q-btn(flat round icon="fas fa-times-circle" size="xs" color="negative")
+          q-btn(flat round icon="fas fa-times-circle" size="xs" color="negative" @click="videoModal = false")
         q-video(:src="`https://www.youtube.com/embed/${videoList[slide].code}?rel=0&hl=${$route.params.lang}&cc_lang_pref=${$route.params.lang}&cc_load_policy=1`")
 </template>
 
@@ -38,6 +38,7 @@ export default {
   data () {
     return {
       videoModal: false,
+      autoplay: 10000,
       slide: 0,
       videoList: [
         { name: 0, code: '' },
@@ -47,6 +48,12 @@ export default {
         { name: 4, code: 'ZdoQzmzg2XY' },
         { name: 5, code: '9tiNJ44OwC8' }
       ]
+    }
+  },
+  watch: {
+    videoModal () {
+      if (this.videoModal) this.autoplay = false
+      else this.autoplay = 10000
     }
   }
 }

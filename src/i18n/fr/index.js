@@ -21,15 +21,64 @@ export default {
     title: 'Menu',
     changelog: {
       label: 'Journal des modifications',
-      desc: '/fr/changelog'
+      desc: 'suivi des versions'
     },
     contact: {
       label: 'Contact',
-      desc: '/fr/contact'
+      desc: ''
+    },
+    guide: {
+      label: 'Guide WH',
+      desc: 'aide pour les wormhole'
+    },
+    fittings: {
+      label: 'Fittings',
+      desc: 'du site o.smium.org'
+    },
+    trade: {
+      label: 'Market',
+      desc: 'consulter les prix'
+    },
+    transport: {
+      label: 'Trade en transport',
+      desc: 'de hub à hub'
+    },
+    station: {
+      label: 'Trade en station',
+      desc: 'dans un seul hub'
+    },
+    scam: {
+      label: 'Fabrique de scam',
+      desc: 'avec le margin trading'
+    },
+    about: {
+      label: 'Au sujet du site',
+      desc: ''
     }
   },
   session: {
-    title: 'Session'
+    title: 'Session',
+    login: 'Se connecter',
+    logout: 'Se déconnecter',
+    admin: 'Administration'
+  },
+  error404: {
+    text: 'Désolé, il n\'y a rien ici...',
+    button: 'Retour'
+  },
+  login: {
+    title: 'Page de Connection SSO',
+    subtitle: 'Donner les autorisations',
+    option1: 'Lire les infos des citadelles',
+    option2: 'Accéder au market des citadelles',
+    option3: 'Ouvrir des fenêtres dans le jeu',
+    option4: 'Définir des waypoints dans le jeu'
+  },
+  logout: {
+    message: 'Vous êtes déconnecté'
+  },
+  admin: {
+    message: 'Pas de page d\'administration pour l\'instant'
   },
   pageIndex: {
     slide: [

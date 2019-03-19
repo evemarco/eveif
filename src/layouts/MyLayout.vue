@@ -15,51 +15,126 @@
           q-avatar
             img(:src="'https://imageserver.eveonline.com/Character/' + 0 + '_64.jpg'")
           | Personne
-        q-select(v-model="lang" @input="$router.push('/' + lang)" :options="langOptions" dark dense borderless emit-value map-options options-dense).on-left
+        q-select(v-model="lang" @input="$router.push('/' + lang + $route.path.slice(3))" :options="langOptions" dark dense borderless emit-value map-options options-dense).on-left
         q-btn(flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Session")
           q-icon(name="fas fa-bars")
-    q-drawer(v-model="leftDrawerOpen" side="left" bordered content-class="bg-black")
+    // Left menu
+    q-drawer(v-model="leftDrawerOpen" side="left" bordered content-class="bg-black" :width="260" :mini="miniLeftDrawerOpen" @mouseover="miniLeftDrawerOpen = false" @mouseout="miniLeftDrawerOpen = true")
       q-list
-        q-item-label(header) {{ $t('menu.title') }}
+        //- q-item-label(header) {{ $t('menu.title') }}
         q-item(v-for="item in menu" :key="item.path" clickable tag="a" :href="`/${lang}/${item.path}`" @click.prevent="$router.push(`/${lang}/${item.path}`)")
           q-item-section(avatar)
             q-icon(:name="item.icon")
           q-item-section
             q-item-label {{ item.label }}
-            q-item-label(caption) {{ item.desc }}
-    q-drawer(v-model="rightDrawerOpen" side="right" bordered content-class="bg-black")
+            q-item-label(caption v-if="item.desc") {{ item.desc }}
+    // Right menu
+    q-drawer(v-model="rightDrawerOpen" side="right" bordered content-class="bg-black" :width="200" :mini="miniRightDrawerOpen" @mouseover="miniRightDrawerOpen = false" @mouseout="miniRightDrawerOpen = true")
       q-list
-        q-item-label(header) {{ $t('session.title') }}
-        q-item(clickable tag="a" target="_blank" href="http://v1.quasar-framework.org")
+        //- q-item-label(header) {{ $t('session.title') }}
+        q-item(clickable @click="login = true")
           q-item-section(avatar)
-            q-icon(name="fas fa-home")
+            q-icon(name="fas fa-sign-in-alt")
           q-item-section
-            q-item-label Docs
-            q-item-label(caption) v1.quasar-framework.org
+            q-item-label {{ $t('session.login') }}
+        q-item(clickable @click="logout")
+          q-item-section(avatar)
+            q-icon(name="fas fa-sign-out-alt")
+          q-item-section
+            q-item-label {{ $t('session.logout') }}
+        q-item(clickable @click="admin")
+          q-item-section(avatar)
+            q-icon(name="fas fa-tasks")
+          q-item-section
+            q-item-label {{ $t('session.admin') }}
+    // Connection screen
+    q-dialog(v-model="login")
+      q-card(dark style="height: 80vh+1px; min-width: 80vw;").login.bg-black
+        .content.text-center
+          h1.text-h3 {{ $t('login.title') }}
+          h2.text-h4 {{ $t('login.subtitle') }}
+          .row.justify-center
+            q-option-group.col-auto.text-left(type="toggle" color="blue-12" dark v-model="scopes" :options="options")
+          br
+          .row.justify-center
+            q-icon(name="fas fa-angle-double-right" size="30px")
+            a(:href="`https://${loginServerBaseURL}/oauth/authorize?response_type=${responseType}&redirect_uri=${redirectURI}&client_id=${clientID}&scope=${scopesStr}&state=${state}`")
+              img(src="/statics/EVE_SSO_Login_Buttons_Small_White.png")
+            q-icon(name="fas fa-angle-double-left" size="30px")
+          br
     q-page-container
       router-view
 </template>
 
 <script>
-import { openURL } from 'quasar'
+import { openURL, uid } from 'quasar'
 
 export default {
   name: 'MyLayout',
   data () {
     return {
+      login: false,
       langOptions: [{ label: 'Français', value: 'fr' }, { label: 'English', value: 'en' }],
       lang: this.$route.params.lang,
       version: process.env.version,
-      leftDrawerOpen: false, // this.$q.platform.is.desktop,
+      leftDrawerOpen: this.$q.platform.is.desktop,
       rightDrawerOpen: false,
-      menu: [
+      miniLeftDrawerOpen: true,
+      miniRightDrawerOpen: true,
+      scopes: [
+        'publicData',
+        'esi-universe.read_structures.v1',
+        'esi-markets.structure_markets.v1',
+        'esi-ui.open_window.v1',
+        'esi-ui.write_waypoint.v1'
+      ],
+      loginServerBaseURL: process.env.loginServerBaseURL,
+      responseType: 'code',
+      redirectURI: encodeURIComponent(process.env.redirectURI),
+      clientID: process.env.clientID
+    }
+  },
+  computed: {
+    menu () {
+      return [
+        { path: 'guide', icon: 'fas fa-book', label: this.$t('menu.guide.label'), desc: this.$t('menu.guide.desc') },
+        { path: 'fittings', icon: 'fas fa-wrench', label: this.$t('menu.fittings.label'), desc: this.$t('menu.fittings.desc') },
+        { path: 'trade', icon: 'fas fa-chart-line', label: this.$t('menu.trade.label'), desc: this.$t('menu.trade.desc') },
+        { path: 'trade/tools/transport', icon: 'fas fa-truck', label: this.$t('menu.transport.label'), desc: this.$t('menu.transport.desc') },
+        { path: 'trade/tools/station', icon: 'fas fa-money-bill-alt', label: this.$t('menu.station.label'), desc: this.$t('menu.station.desc') },
+        { path: 'trade/scam', icon: 'fas fa-cart-arrow-down', label: this.$t('menu.scam.label'), desc: this.$t('menu.scam.desc') },
+        { path: 'about', icon: 'fas fa-question-circle', label: this.$t('menu.about.label'), desc: this.$t('menu.about.desc') },
         { path: 'changelog', icon: 'fas fa-code', label: this.$t('menu.changelog.label'), desc: this.$t('menu.changelog.desc') },
         { path: 'contact', icon: 'fas fa-envelope', label: this.$t('menu.contact.label'), desc: this.$t('menu.contact.desc') }
       ]
+    },
+    options () {
+      return [
+        { label: this.$t('login.option1'), value: this.scopes[1] },
+        { label: this.$t('login.option2'), value: this.scopes[2] },
+        { label: this.$t('login.option3'), value: this.scopes[3] },
+        { label: this.$t('login.option4'), value: this.scopes[4] }
+      ]
+    },
+    scopesStr () {
+      return this.scopes.join('+')
+    },
+    state () {
+      let state = uid()
+      this.$q.localStorage.set('state', state)
+      console.log(state)
+      return state
     }
   },
   methods: {
-    openURL
+    openURL,
+    uid,
+    logout () {
+      this.$q.notify({ color: 'negative', message: this.$t('logout.message') })
+    },
+    admin () {
+      this.$q.notify({ color: 'negative', message: this.$t('admin.message') })
+    }
   },
   watch: {
     lang (lang) {
@@ -76,5 +151,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+.login
+  background-image: url('https://webimg.ccpgamescdn.com/7lhcm73ukv5p/6LCbIs6wQo0iMQ2QuWIGou/b9e34e2b3dd4283256b5618c7bc09167/Skill_Injector.png_w=900&fm=jpg&fl=progressive') !important
+  background-position: center !important
+  background-repeat: no-repeat !important
+  background-size: cover !important
 </style>

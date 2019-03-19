@@ -21,15 +21,64 @@ export default {
     title: 'Menu',
     changelog: {
       label: 'Changelog',
-      desc: '/en/changelog'
+      desc: ''
     },
     contact: {
       label: 'Contact',
-      desc: '/en/contact'
+      desc: ''
+    },
+    guide: {
+      label: 'WH Guide',
+      desc: 'wormhole help'
+    },
+    fittings: {
+      label: 'Fittings',
+      desc: 'from o.smium.org'
+    },
+    trade: {
+      label: 'Market',
+      desc: 'consult price'
+    },
+    transport: {
+      label: 'Transport trade',
+      desc: 'hub to hub'
+    },
+    station: {
+      label: 'Station trade',
+      desc: 'in one hub only'
+    },
+    scam: {
+      label: 'Scam factory',
+      desc: 'with margin trading'
+    },
+    about: {
+      label: 'About',
+      desc: ''
     }
   },
   session: {
-    title: 'Session'
+    title: 'Session',
+    login: 'Login',
+    logout: 'Logout',
+    admin: 'Admin'
+  },
+  error404: {
+    text: 'Sorry, nothing here...',
+    button: 'Go back'
+  },
+  login: {
+    title: 'SSO Connexion Page',
+    subtitle: 'Give the Authorizations',
+    option1: 'Read citadels infos',
+    option2: 'Access citadels market',
+    option3: 'Open windows in game',
+    option4: 'Set waypoints in game'
+  },
+  logout: {
+    message: 'You are deconnected'
+  },
+  admin: {
+    message: 'No administration page actually'
   },
   pageIndex: {
     slide: [

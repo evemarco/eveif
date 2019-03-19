@@ -53,21 +53,24 @@ module.exports = function (ctx) {
         'QVideo',
         'QCard',
         'QCardActions',
-        'QCardSection'
+        'QCardSection',
+        'QOptionGroup'
       ],
 
       directives: [
         'Ripple',
         'CloseDialog'
       ],
-
+      
       // Quasar plugins
       plugins: [
         'Notify',
         'Meta',
         'LocalStorage'
       ],
-
+      config: {
+        notify: { position: 'top', timeout: '2500' }
+      },
       iconSet: 'fontawesome-v5',
       lang: 'fr' // Quasar language
     },
@@ -84,11 +87,21 @@ module.exports = function (ctx) {
       env: ctx.dev
         ? { // so on dev we'll have
           version: JSON.stringify(version + 'dev'),
-          API: JSON.stringify('https://dev.api.com')
+          API: JSON.stringify('https://dev.api.com'),
+          loginServerBaseURL: JSON.stringify('login.eveonline.com'),
+          redirectURI: JSON.stringify('http://localhost:8080/oauth-callback'),
+          // change the client ID with your
+          clientID: JSON.stringify('XXXX'),
+          apiServerAdress: JSON.stringify('http://localhost:3000')
         }
         : { // and on build (production):
           version: JSON.stringify(version),
-          API: JSON.stringify('https://prod.api.com')
+          API: JSON.stringify('https://prod.api.com'),
+          loginServerBaseURL: JSON.stringify('login.eveonline.com'),
+          redirectURI: JSON.stringify('http://localhost:8080/oauth-callback'),
+          // change the client ID with your
+          clientID: JSON.stringify('XXXX'),
+          apiServerAdress: JSON.stringify('http://localhost:3000')
         },
       extendWebpack (cfg) {
         cfg.module.rules.push({
