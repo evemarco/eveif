@@ -126,7 +126,7 @@ export default {
   methods: {
     openURL,
     uid,
-    ...mapActions({ initProfil: 'profil/initProfil', logoutProfil: 'profil/logoutProfil' }),
+    ...mapActions({ checkAdmin: 'profil/checkAdmin', initProfil: 'profil/initProfil', logoutProfil: 'profil/logoutProfil' }),
     initState () {
       this.state = uid()
       this.$q.localStorage.set('state', this.state)
@@ -142,7 +142,9 @@ export default {
       this.loginPage = true
     },
     admin () {
-      this.$q.notify({ color: 'negative', message: this.$t('admin.message') })
+      this.checkAdmin()
+        .then(() => { this.$q.notify({ color: 'positive', message: this.$t('admin.message') }) })
+        .catch(() => { this.$q.notify({ color: 'negative', message: this.$t('admin.message') }) })
     }
   },
   watch: {
