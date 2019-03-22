@@ -11,10 +11,10 @@
             q-btn(flat dense size="lg" no-caps @click="$router.push('/')") EveIF.fr
               q-badge(color="primary" @click.stop="$router.push('/' + lang + '/changelog')").on-right.bmarge {{ version }}
         // v-if="this.$store.state.app.isAuth" this.$store.state.app.characterID this.$store.state.app.characterName
-        q-chip(color="dark text-white").q-mr-md
+        q-chip(v-if="isAuth" color="dark text-white").q-mr-md
           q-avatar
-            img(:src="'https://imageserver.eveonline.com/Character/' + 0 + '_64.jpg'")
-          | Personne
+            img(:src="`https://imageserver.eveonline.com/Character/${character.id}_64.jpg`")
+          | {{ character.name }}
         q-select(v-model="lang" @input="$router.push('/' + lang + $route.path.slice(3))" :options="langOptions" dark dense borderless emit-value map-options options-dense).on-left
         q-btn(flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Session")
           q-icon(name="fas fa-bars")
@@ -32,7 +32,7 @@
     q-drawer(v-model="rightDrawerOpen" side="right" bordered content-class="bg-black" :width="200" :mini="miniRightDrawerOpen" @mouseover="miniRightDrawerOpen = false" @mouseout="miniRightDrawerOpen = true")
       q-list
         //- q-item-label(header) {{ $t('session.title') }}
-        q-item(clickable @click="login = true")
+        q-item(clickable @click="login")
           q-item-section(avatar)
             q-icon(name="fas fa-sign-in-alt")
           q-item-section
@@ -48,7 +48,7 @@
           q-item-section
             q-item-label {{ $t('session.admin') }}
     // Connection screen
-    q-dialog(v-model="login")
+    q-dialog(v-model="loginPage")
       q-card(dark style="height: 80vh+1px; min-width: 80vw;").login.bg-black
         .content.text-center
           h1.text-h3 {{ $t('login.title') }}
@@ -68,12 +68,13 @@
 
 <script>
 import { openURL, uid } from 'quasar'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'MyLayout',
   data () {
     return {
-      login: false,
+      loginPage: false,
       langOptions: [{ label: 'Français', value: 'fr' }, { label: 'English', value: 'en' }],
       lang: this.$route.params.lang,
       version: process.env.version,
@@ -91,7 +92,8 @@ export default {
       loginServerBaseURL: process.env.loginServerBaseURL,
       responseType: 'code',
       redirectURI: encodeURIComponent(process.env.redirectURI),
-      clientID: process.env.clientID
+      clientID: process.env.clientID,
+      state: ''
     }
   },
   computed: {
@@ -119,18 +121,25 @@ export default {
     scopesStr () {
       return this.scopes.join('+')
     },
-    state () {
-      let state = uid()
-      this.$q.localStorage.set('state', state)
-      console.log(state)
-      return state
-    }
+    ...mapGetters({ isAuth: 'profil/isAuth', character: 'profil/character' })
   },
   methods: {
     openURL,
     uid,
+    ...mapActions({ initProfil: 'profil/initProfil', logoutProfil: 'profil/logoutProfil' }),
+    initState () {
+      this.state = uid()
+      this.$q.localStorage.set('state', this.state)
+      console.log(this.state)
+    },
     logout () {
       this.$q.notify({ color: 'negative', message: this.$t('logout.message') })
+      this.logoutProfil()
+    },
+    login () {
+      this.$q.localStorage.set('lastPath', this.$route.path)
+      this.initState()
+      this.loginPage = true
     },
     admin () {
       this.$q.notify({ color: 'negative', message: this.$t('admin.message') })
@@ -146,6 +155,8 @@ export default {
     }
   },
   created () {
+    this.initProfil()
+    // this.$store.dispatch('profil/initProfil')
     this.$i18n.locale = (this.$route.params.lang === 'en') ? 'en-us' : this.$route.params.lang
   }
 }

@@ -1,5 +1,6 @@
 const routes = [
   { path: '/', redirect: '/fr' },
+  { path: '/oauth-callback', component: () => import('pages/OAuthCallback') },
   {
     path: '/:lang',
     component: () => import('layouts/MyLayout.vue'),
