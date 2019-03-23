@@ -112,10 +112,10 @@ export default {
     },
     options () {
       return [
-        { label: this.$t('login.option1'), value: this.scopes[1] },
-        { label: this.$t('login.option2'), value: this.scopes[2] },
-        { label: this.$t('login.option3'), value: this.scopes[3] },
-        { label: this.$t('login.option4'), value: this.scopes[4] }
+        { label: this.$t('login.option1'), value: 'esi-universe.read_structures.v1' },
+        { label: this.$t('login.option2'), value: 'esi-markets.structure_markets.v1' },
+        { label: this.$t('login.option3'), value: 'esi-ui.open_window.v1' },
+        { label: this.$t('login.option4'), value: 'esi-ui.write_waypoint.v1' }
       ]
     },
     scopesStr () {
