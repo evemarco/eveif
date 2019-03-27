@@ -43,10 +43,11 @@ export default {
       videoList: [
         { name: 0, code: '' },
         { name: 1, code: 'zQciMy_Pr0Q' },
-        { name: 2, code: 'AdfFnTt2UT0' },
-        { name: 3, code: '0bjTrPutt4k' },
-        { name: 4, code: 'ZdoQzmzg2XY' },
-        { name: 5, code: '9tiNJ44OwC8' }
+        { name: 2, code: 'nrwffiIB5ok' },
+        { name: 3, code: 'AdfFnTt2UT0' },
+        { name: 4, code: '0bjTrPutt4k' },
+        { name: 5, code: 'ZdoQzmzg2XY' },
+        { name: 6, code: '9tiNJ44OwC8' }
       ]
     }
   },

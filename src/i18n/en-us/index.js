@@ -80,6 +80,14 @@ export default {
   admin: {
     message: 'No administration page actually'
   },
+  error: {
+    notAdmin: 'Your character has not "admin" role',
+    notUser: 'Your character has not "user" role',
+    notScammer: 'Your character has not "scammer" role',
+    notTrader: 'Your character has not "trader" role',
+    notConnected: 'Your character is not connected, please login',
+    tokenExpired: 'Your token expired, please reconnect'
+  },
   pageIndex: {
     slide: [
       { title: 'This website offers: ',
@@ -97,6 +105,11 @@ export default {
         and switch to a full access account, with the game or subscription credits.<br/>
         Are you a new player?<br/>
         Go through this <strong><a target="_blank" href="http://secure.eveonline.com/signup/?invc=bf6cfbe6-d148-4ac6-ae98-cfd1494b1215&amp;action=buddy" title="Referral link">link</a></strong> to earn 250,000 skill points and progress faster.</p>`
+      },
+      { title: 'Gameplay',
+        text: `<p class="bg-1">Find out what you can do as a pilot in New Eden, <br/>
+        create challenges, the universe is vast, <br/>
+        associate with other players to be stronger!</p>`
       },
       { title: 'This is EVE!',
         text: `<p class="bg-1">Eve Online is a sandbox game where the smallest of your actions has an influence on other players. <br/>

@@ -144,7 +144,7 @@ export default {
     admin () {
       this.checkAdmin()
         .then(() => { this.$q.notify({ color: 'positive', message: this.$t('admin.message') }) })
-        .catch(() => { this.$q.notify({ color: 'negative', message: this.$t('admin.message') }) })
+        .catch((err) => { this.$q.notify({ color: 'negative', message: this.$te(err.message) ? this.$t(err.message) : err.message }) })
     }
   },
   watch: {
@@ -170,4 +170,6 @@ export default {
   background-position: center !important
   background-repeat: no-repeat !important
   background-size: cover !important
+.q-item__label + .q-item__label
+  margin-top: 2px
 </style>

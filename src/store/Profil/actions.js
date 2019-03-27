@@ -8,37 +8,25 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.apiServerAdress
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
-export const checkExpire = ({ state, commit, dispatch, getters }) => {
-  return new Promise((resolve, reject) => {
-    if (state.isAuth) {
-      let delai = state.profil.expire - Date.now()
-      // Si on dépasse 12 heures, on se delog
-      if (delai < -(12 * 3600 * 1000)) {
+export const checkExpire = async ({ state, commit, dispatch, getters }) => {
+  if (state.isAuth) {
+    let delai = state.profil.expire - Date.now()
+    if (delai < -(12 * 3600 * 1000)) {
+      dispatch('logoutProfil')
+      throw new Error('error.tokenExpired')
+    } else if (delai <= 5000) {
+      try {
+        const response = await axios.get('/api/v1/refresh_token', getters('headers'))
+        console.log('Clef renouvelée : ' + response.data.expire + response.data.token)
+        commit('updateExpire', new Date(response.data.expire).getTime())
+        commit('updateToken', response.data.token)
+      } catch (err) {
         dispatch('logoutProfil')
-        reject(new Error('Token de 12 heures périmé'))
-      } else if (delai <= 5000) { // sinon on renouvelle la clef si elle est proche de l'expiration (1 heure)
-        axios.get('/api/v1/refresh_token', getters('headers'))
-          .then((response) => { // on recup la nouvelle clef
-            console.log('Clef renouvelée : ' + response.data.expire + response.data.token)
-            commit('updateExpire', new Date(response.data.expire).getTime())
-            commit('updateToken', response.data.token)
-            resolve()
-          })
-          .catch(() => { // si ca échoue, on delog
-            console.log('refresh clef echoué')
-            dispatch('logoutProfil')
-            reject(new Error('refresh clef echoué'))
-          })
-      } else {
-        console.log('check clef OK : ' + delai)
-        resolve()
+        throw err
       }
-    } else {
-      // non connecté, il n'y a rien à faire
-      resolve()
-      // reject(new Error('non connecté'))
     }
-  })
+    return true
+  } else throw new Error('error.notConnected')
 }
 
 export const logoutProfil = async ({ state, commit }) => {
@@ -66,30 +54,30 @@ export const initProfil = ({ state, commit }) => {
 }
 
 export const checkUser = async ({ state, dispatch, getters }) => {
-  await dispatch('checkExpire')
-  return new Promise((resolve, reject) => {
-    if (getters.isUser) resolve()
-    else reject()
-  })
+  try {
+    await dispatch('checkExpire')
+  } catch (err) { throw err }
+  if (getters['isUser']) return true
+  else throw new Error('error.notUser')
 }
 export const checkTrader = async ({ state, dispatch, getters }) => {
-  await dispatch('checkExpire')
-  return new Promise((resolve, reject) => {
-    if (getters.isTrader) resolve()
-    else reject()
-  })
+  try {
+    await dispatch('checkExpire')
+  } catch (err) { throw err }
+  if (getters['isTrader']) return true
+  else throw new Error('error.notTrader')
 }
 export const checkScammer = async ({ state, dispatch, getters }) => {
-  await dispatch('checkExpire')
-  return new Promise((resolve, reject) => {
-    if (getters.isScammer) resolve()
-    else reject()
-  })
+  try {
+    await dispatch('checkExpire')
+  } catch (err) { throw err }
+  if (getters['isScammer']) return true
+  else throw new Error('error.notScammer')
 }
 export const checkAdmin = async ({ state, dispatch, getters }) => {
-  await dispatch('checkExpire')
-  return new Promise((resolve, reject) => {
-    if (getters.isAdmin) resolve()
-    else reject()
-  })
+  try {
+    await dispatch('checkExpire')
+  } catch (err) { throw err }
+  if (getters['isAdmin']) return true
+  else throw new Error('error.notAdmin')
 }

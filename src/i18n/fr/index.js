@@ -80,6 +80,14 @@ export default {
   admin: {
     message: 'Pas de page d\'administration pour l\'instant'
   },
+  error: {
+    notAdmin: 'Votre perso n\'a pas de rôle "admin"',
+    notUser: 'Votre perso n\'a pas de rôle "user"',
+    notScammer: 'Votre perso n\'a pas de rôle admin "scammer"',
+    notTrader: 'Votre perso n\'a pas de rôle admin "trader"',
+    notConnected: 'Votre perso n\'est pas connecté, veuillez vous connecter',
+    tokenExpired: 'Votre token a expiré, veuillez vous reconnecter'
+  },
   pageIndex: {
     slide: [
       { title: 'Ce site web propose : ',
@@ -93,6 +101,11 @@ export default {
         et basculez en compte en accès complet, avec les crédits du jeu ou par abonnement.<br/>
         Etes-vous un nouveau joueur ?<br/>
         Passez par ce <strong><a target="_blank" href="https://www.eveonline.com/fr/signup?invc=bf6cfbe6-d148-4ac6-ae98-cfd1494b1215" title="Lien de parrainage">lien</a></strong> pour gagner 250 000 points de compétences et progresser plus vite.</p>`
+      },
+      { title: 'Gameplay',
+        text: `<p class="bg-1">Découvrez ce que vous pouvez faire en tant que pilote à New Eden, <br/>
+        créez vous des challenges, l'univers est vaste, <br/>
+        associez vous à d'autres joueurs pour être plus fort !</p>`
       },
       { title: 'This is EVE !',
         text: `<p class="bg-1">Eve Online est un jeu bac à sable où la moindre de vos actions a une influence sur les autres joueurs. <br/>
