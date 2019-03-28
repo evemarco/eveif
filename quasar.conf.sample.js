@@ -8,7 +8,7 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
-      'sitemapMiddleware'
+      'markdown'
     ],
 
     css: [

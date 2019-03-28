@@ -2,7 +2,6 @@
 export function someAction (context) {
 }
 */
-import { LocalStorage } from 'quasar'
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.apiServerAdress
@@ -10,7 +9,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 export const checkExpire = async ({ state, commit, dispatch, getters }) => {
   if (state.isAuth) {
-    let delai = state.profil.expire - Date.now()
+    let delai = state.expire - Date.now()
     if (delai < -(12 * 3600 * 1000)) {
       dispatch('logoutProfil')
       throw new Error('error.tokenExpired')
@@ -34,23 +33,10 @@ export const logoutProfil = async ({ state, commit }) => {
   commit('updateAuth', false)
 }
 
-export const saveProfil = ({ state, commit }) => {
-  LocalStorage.set('profil', state.profil)
-}
-
 export const initProfil = ({ state, commit }) => {
-  if (LocalStorage.has('profil')) {
-    let profil = LocalStorage.getItem('profil')
-    commit('updateCharacterID', profil.characterID)
-    commit('updateCharacterName', profil.characterName)
-    commit('updateRole', profil.role)
-    commit('updateToken', profil.token)
-    commit('updateExpire', profil.expire)
-    commit('updateScopes', profil.scopes)
-    let delai = profil.expire - Date.now()
-    console.log('delai = ', delai)
-    if (delai >= 0) commit('updateAuth', true)
-  }
+  let delai = state.expire - Date.now()
+  console.log('delai = ', delai)
+  commit('updateAuth', (delai > 0))
 }
 
 export const checkUser = async ({ state, dispatch, getters }) => {
