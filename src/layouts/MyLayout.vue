@@ -67,8 +67,10 @@
 </template>
 
 <script>
-import { openURL, uid } from 'quasar'
+import { openURL, uid, format } from 'quasar'
 import { mapActions, mapGetters } from 'vuex'
+// destructuring to keep only what is needed
+const { humanStorageSize } = format
 
 export default {
   name: 'MyLayout',
@@ -158,11 +160,10 @@ export default {
   },
   created () {
     this.initProfil()
-    // this.$store.dispatch('profil/initProfil')
     this.$i18n.locale = (this.$route.params.lang === 'en') ? 'en-us' : this.$route.params.lang
     if ('storage' in navigator && 'estimate' in navigator.storage) {
       navigator.storage.estimate().then(({ usage, quota }) => {
-        console.log(`Web storage using ${usage} out of ${quota} bytes.`)
+        console.log(`Web storage using ${humanStorageSize(usage)} out of ${humanStorageSize(quota)}.`)
       })
     }
   }

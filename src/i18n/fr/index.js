@@ -15,6 +15,11 @@ export default {
       title: 'Contact',
       description: 'Page de contact',
       keywords: 'eve online, eve, contact, personnage, pseudonyme'
+    },
+    scam: {
+      title: 'Fabrique de scam',
+      description: 'Page d\'aide pour fabriquer du scam dans le market du jeu',
+      keywords: 'eve online, eve, market, scam, arnaque, trade, margin trading, skills, compétences'
     }
   },
   menu: {
@@ -72,7 +77,8 @@ export default {
     option1: 'Lire les infos des citadelles',
     option2: 'Accéder au market des citadelles',
     option3: 'Ouvrir des fenêtres dans le jeu',
-    option4: 'Définir des waypoints dans le jeu'
+    option4: 'Définir des waypoints dans le jeu',
+    message: 'Vous êtes connecté'
   },
   logout: {
     message: 'Vous êtes déconnecté'
@@ -83,8 +89,8 @@ export default {
   error: {
     notAdmin: 'Votre perso n\'a pas de rôle "admin"',
     notUser: 'Votre perso n\'a pas de rôle "user"',
-    notScammer: 'Votre perso n\'a pas de rôle admin "scammer"',
-    notTrader: 'Votre perso n\'a pas de rôle admin "trader"',
+    notScammer: 'Votre perso n\'a pas de rôle "scammer"',
+    notTrader: 'Votre perso n\'a pas de rôle "trader"',
     notConnected: 'Votre perso n\'est pas connecté, veuillez vous connecter',
     tokenExpired: 'Votre token a expiré, veuillez vous reconnecter'
   },
@@ -130,5 +136,17 @@ export default {
   },
   pageContact: {
     text: `Je suis contactable dans le jeu <a href="https://www.eveonline.com/fr" target="_blank" rel="noopener">Eve Online</a>, sous le pseudonyme`
+  },
+  pageScam: {
+    title: 'Fabrique de scam',
+    table: {
+      id: 'ID',
+      name: 'Nom',
+      nb: 'NB',
+      minPrice: 'Prix min',
+      maxPrice: 'Prix max',
+      packaged: 'Vol. / unité',
+      totalPrice: 'Prix total'
+    }
   }
 }

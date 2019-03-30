@@ -11,6 +11,7 @@ const routes = [
     },
     children: [
       { path: '', component: () => import('pages/Index.vue') },
+      { path: 'trade/scam', component: () => import('pages/ScamFactory.vue'), alias: '/trade/scam' },
       { path: 'changelog', component: () => import('pages/Changelog.vue'), alias: '/changelog' },
       { path: 'contact', component: () => import('pages/Contact.vue'), alias: '/contact' },
       { path: '*', component: () => import('pages/Error404.vue') }

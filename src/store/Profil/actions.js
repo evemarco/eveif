@@ -8,15 +8,14 @@ axios.defaults.baseURL = process.env.apiServerAdress
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 export const checkExpire = async ({ state, commit, dispatch, getters }) => {
-  if (state.isAuth) {
+  if (getters['isAuth']) {
     let delai = state.expire - Date.now()
     if (delai < -(12 * 3600 * 1000)) {
       dispatch('logoutProfil')
       throw new Error('error.tokenExpired')
     } else if (delai <= 5000) {
       try {
-        const response = await axios.get('/api/v1/refresh_token', getters('headers'))
-        console.log('Clef renouvelée : ' + response.data.expire + response.data.token)
+        const response = await axios.get('/api/v1/refresh_token', getters['headers'])
         commit('updateExpire', new Date(response.data.expire).getTime())
         commit('updateToken', response.data.token)
       } catch (err) {
@@ -35,7 +34,6 @@ export const logoutProfil = async ({ state, commit }) => {
 
 export const initProfil = ({ state, commit }) => {
   let delai = state.expire - Date.now()
-  console.log('delai = ', delai)
   commit('updateAuth', (delai > 0))
 }
 

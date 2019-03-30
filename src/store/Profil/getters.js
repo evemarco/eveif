@@ -37,5 +37,5 @@ export const checkScopeWriteWaypoint = (state) => {
   } else return false
 }
 export const headers = (state) => {
-  return { headers: { Authorization: 'Bearer ' + state.profil.token } }
+  return { headers: { Authorization: 'Bearer ' + state.token } }
 }

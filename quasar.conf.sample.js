@@ -8,7 +8,8 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
-      'markdown'
+      'markdown',
+      'timeago'
     ],
 
     css: [
@@ -54,7 +55,12 @@ module.exports = function (ctx) {
         'QCard',
         'QCardActions',
         'QCardSection',
-        'QOptionGroup'
+        'QOptionGroup',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QLinearProgress'
       ],
 
       directives: [

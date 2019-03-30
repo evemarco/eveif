@@ -15,6 +15,11 @@ export default {
       title: 'Contact',
       description: 'Contact page',
       keywords: 'eve online, eve, contact, character, pseudonym'
+    },
+    scam: {
+      title: 'Scam Factory',
+      description: 'Help page to made scam in the market',
+      keywords: 'eve online, eve, market, scam, trade, margin trading, skills'
     }
   },
   menu: {
@@ -72,7 +77,8 @@ export default {
     option1: 'Read citadels infos',
     option2: 'Access citadels market',
     option3: 'Open windows in game',
-    option4: 'Set waypoints in game'
+    option4: 'Set waypoints in game',
+    message: 'You are connected'
   },
   logout: {
     message: 'You are deconnected'
@@ -134,5 +140,17 @@ export default {
   },
   pageContact: {
     text: `I am contactable in game <a href="https://www.eveonline.com/en" target="_blank" rel="noopener">Eve Online</a>, under the character`
+  },
+  pageScam: {
+    title: 'Scam factory',
+    table: {
+      id: 'ID',
+      name: 'Name',
+      nb: 'NB',
+      minPrice: 'Min price',
+      maxPrice: 'Max Price',
+      packaged: 'Vol. / unit',
+      totalPrice: 'Total price'
+    }
   }
 }

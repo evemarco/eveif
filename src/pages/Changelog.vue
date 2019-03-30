@@ -1,7 +1,7 @@
 <template lang="pug">
   q-page(padding)
-    div Quasar v{{ $q.version }}
-    vue-markdown {{ test }}
+    div powered by Quasar framework v{{ $q.version }}
+    vue-markdown {{ text }}
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
   name: 'PageChangelog',
   data () {
     return {
-      test: 'TEST is ***test***'
+      text: `Changelog`
     }
   }
 }
