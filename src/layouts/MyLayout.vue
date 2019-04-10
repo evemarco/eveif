@@ -2,8 +2,7 @@
   q-layout(view="hHh Lpr lFf")
     q-header(elevated).glossy
       q-toolbar.bg-black
-        q-btn(flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu")
-          q-icon(name="fas fa-bars")
+        q-btn(flat dense round icon="fas fa-bars" @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu")
         q-toolbar-title
           q-btn-group
             q-btn(flat dense @click="$router.push('/')")
@@ -16,8 +15,7 @@
             img(:src="`https://imageserver.eveonline.com/Character/${character.id}_64.jpg`")
           | {{ character.name }}
         q-select(v-model="lang" @input="$router.push('/' + lang + $route.path.slice(3))" :options="langOptions" dark dense borderless emit-value map-options options-dense).on-left
-        q-btn(flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Session")
-          q-icon(name="fas fa-bars")
+        q-btn(flat dense round icon="fas fa-bars" @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Session")
     // Left menu
     q-drawer(v-model="leftDrawerOpen" side="left" bordered content-class="bg-black" :width="260" :mini="miniLeftDrawerOpen" @mouseover="miniLeftDrawerOpen = false" @mouseout="miniLeftDrawerOpen = true")
       q-list

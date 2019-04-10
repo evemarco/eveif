@@ -92,7 +92,8 @@ export default {
     notScammer: 'Votre perso n\'a pas de rôle "scammer"',
     notTrader: 'Votre perso n\'a pas de rôle "trader"',
     notConnected: 'Votre perso n\'est pas connecté, veuillez vous connecter',
-    tokenExpired: 'Votre token a expiré, veuillez vous reconnecter'
+    tokenExpired: 'Votre token a expiré, veuillez vous reconnecter',
+    noScope: 'Vous n\'avez pas le bon scope pour cette opération'
   },
   pageIndex: {
     slide: [
@@ -147,6 +148,24 @@ export default {
       maxPrice: 'Prix max',
       packaged: 'Vol. / unité',
       totalPrice: 'Prix total'
+    },
+    universe: {
+      title: 'Market de l\'univers',
+      table: {
+        nb: 'NB',
+        price: 'Prix',
+        station: 'Station',
+        modified: 'Créé / modifié',
+        average: 'Moyenne'
+      }
     }
+  },
+  common: {
+    openItem: 'Montrer l\'item dans le market du jeu',
+    itemOpened: 'montré dans le market du jeu',
+    refresh: 'Rafraichir les données',
+    copy: 'Copier dans le clipboard',
+    copied: 'copié dans le clipboard',
+    destination: 'Destination vers'
   }
 }

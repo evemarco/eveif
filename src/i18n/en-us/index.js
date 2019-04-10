@@ -92,7 +92,8 @@ export default {
     notScammer: 'Your character has not "scammer" role',
     notTrader: 'Your character has not "trader" role',
     notConnected: 'Your character is not connected, please login',
-    tokenExpired: 'Your token expired, please reconnect'
+    tokenExpired: 'Your token expired, please reconnect',
+    noScope: 'You don\'t have the right scope for this operation'
   },
   pageIndex: {
     slide: [
@@ -151,6 +152,24 @@ export default {
       maxPrice: 'Max Price',
       packaged: 'Vol. / unit',
       totalPrice: 'Total price'
+    },
+    universe: {
+      title: 'Universe market',
+      table: {
+        nb: 'NB',
+        price: 'Price',
+        station: 'Station',
+        modified: 'Created / modified',
+        average: 'Average'
+      }
     }
+  },
+  common: {
+    openItem: 'Show item in market game',
+    itemOpened: 'showed in market game',
+    refresh: 'Refresh data',
+    copy: 'Copy in the clipboard',
+    copied: 'copied in the clipboard',
+    destination: 'Destination to'
   }
 }

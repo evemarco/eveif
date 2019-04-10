@@ -9,7 +9,9 @@ module.exports = function (ctx) {
       'i18n',
       'axios',
       'markdown',
-      'timeago'
+      'timeago',
+      'autonumeric',
+      'clipboard'
     ],
 
     css: [
@@ -37,6 +39,7 @@ module.exports = function (ctx) {
         'QToolbarTitle',
         'QBtn',
         'QBtnGroup',
+        'QBtnToggle',
         'QIcon',
         'QList',
         'QItem',
@@ -60,7 +63,12 @@ module.exports = function (ctx) {
         'QTh',
         'QTr',
         'QTd',
-        'QLinearProgress'
+        'QLinearProgress',
+        'QSpinner',
+        'QTooltip',
+        'QInput',
+        'QCheckbox',
+        'QSpace'
       ],
 
       directives: [
